@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue练习04</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+</head>
+<style type="text/css">
+    thead{
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: rgb(230, 189, 189);
+        text-align: center;
+    }
+    table {
+        text-align: center;
+        border-bottom-color: rgb(230, 189, 189);
+    }
+
+    /* Padding and font style */
+    table td, table th {
+        padding: 5px 10px;
+        font-size: 12px;
+        font-family: Verdana;
+        color: rgb(177, 106, 104);
+    }
+
+    /* Alternating background colors */
+    table tr {
+        background: rgb(238, 211, 210)
+    }
+
+</style>
+<style>
+    .mystyle{
+        color: red;
+    }
+</style>
+<body>
+
+<div id="mytext" >
+    <table>
+        <thead>
+            <td></td>
+            <td>图书名称</td>
+            <td>出版日期</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>总价</td>
+            <td>操作</td>
+        </thead>
+        <tbody>
+        <tr v-for="(book,index) in books">
+            <td >{{index+1}}</td>
+            <td >{{book.name}}</td>
+            <td >{{book.date}}</td>
+            <td >{{book.price | myprice}}</td>
+            <td >{{book.price*book.num | myprice}}</td>
+            <td >
+                <button @click="book.num--">—</button>
+                {{book.num}}
+                <button @click="book.num++">+</button>
+            </td>
+            <td >
+                <button >移除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<script type="text/javascript">
+    let myVue=new Vue({
+        el: '#mytext',
+        data: {
+            books: [
+                {
+                    name: "西游记",
+                    date: "2012-12-11",
+                    price: 65.23,
+                    num:1
+                },
+                {
+                    name: "三国演义",
+                    date: "2011-1-19",
+                    price: 45.98,
+                    num:1
+                },{
+                    name: "红楼梦",
+                    date: "2009-2-8",
+                    price: 78.83,
+                    num:1
+                },{
+                    name: "水浒传",
+                    date: "2019-7-8",
+                    price: 24.36,
+                    num:1
+                },
+
+            ]
+        },
+        methods:{
+            myclik(index){
+                this.myindex=index;
+            }
+        },
+        filters: {
+            myprice(price){
+                return '￥'+price.toFixed(2)
+            }
+        }
+    })
+</script>
+</body>
+</html>
