@@ -38,8 +38,9 @@
 <body>
 
 <div id="mytext" >
-    <table>
-        <thead>
+    <div v-if="books.length>0">
+        <table>
+            <thead>
             <td></td>
             <td>图书名称</td>
             <td>出版日期</td>
@@ -47,25 +48,30 @@
             <td>数量</td>
             <td>总价</td>
             <td>操作</td>
-        </thead>
-        <tbody>
-        <tr v-for="(book,index) in books">
-            <td >{{index+1}}</td>
-            <td >{{book.name}}</td>
-            <td >{{book.date}}</td>
-            <td >{{book.price | myprice}}</td>
-            <td >{{book.price*book.num | myprice}}</td>
-            <td >
-                <button @click="book.num--">—</button>
-                {{book.num}}
-                <button @click="book.num++">+</button>
-            </td>
-            <td >
-                <button >移除</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <tr v-for="(book,index) in books">
+                <td >{{index+1}}</td>
+                <td >{{book.name}}</td>
+                <td >{{book.date}}</td>
+                <td >{{book.price | myprice}}</td>
+                <td >{{book.price*book.num | myprice}}</td>
+                <td >
+                    <button @click="book.num--" :disabled=" book.num<=1">—</button>
+                    {{book.num}}
+                    <button @click="book.num++">+</button>
+                </td>
+                <td >
+                    <button @click="removeClick(index)" >移除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>总价为：{{totalPrices| myprice}}</div>
+    </div>
+    <div v-else>
+        购物车为空
+    </div>
 
 
 </div>
@@ -103,11 +109,23 @@
         methods:{
             myclik(index){
                 this.myindex=index;
+            },
+            removeClick(index){
+                this.books.splice(index,1)
             }
         },
         filters: {
             myprice(price){
                 return '￥'+price.toFixed(2)
+            }
+        },
+        computed: {
+            totalPrices(){
+                let mytotalPrices=0;
+               for(let i=0;i<this.books.length;i++) {
+                   mytotalPrices+=this.books[i].price*this.books[i].num;
+               }
+               return mytotalPrices
             }
         }
     })

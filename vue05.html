@@ -2,21 +2,20 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>Vue练习03</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+    <title>Vue练习05</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
 </head>
 <body>
 
 <div id="mytext" >
-    <p>当前数据：{{num}}</p>
-    <button @click="num++">+</button>
-    <button v-on:click="num--">-</button>
+    <input type="text" :value="mytext" >
+    <h1>{{mytext}}</h1>
 </div>
 
 <script type="text/javascript">
     let myVue=new Vue({
         el: '#mytext',
         data: {
-           num: 0
+           mytext: "西游记"
         }
         
     })

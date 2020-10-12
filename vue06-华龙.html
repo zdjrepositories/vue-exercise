@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>华龙证券</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+</head>
+<body>
+
+<div id="mytext" >
+    <input type="checkbox" id="agree" v-model="isAgree">同意协议
+    <a v-for="protocol in  protocols" :href="protocol.url">{{protocol.name}}</a>
+    <br>
+    <button :disabled="!isAgree">下一步</button>
+
+</div>
+
+<script type="text/javascript">
+    let myVue=new Vue({
+        el: '#mytext',
+        data: {
+            isAgree: false,
+            protocols: [
+                {
+                    id: '0024',
+                    name: "《基金定投开户协议》",
+                    url: "http://www.baidu.com"
+                }, {
+                    id: '0124',
+                    name:  "《华龙证券代销金融产品投资者风险揭示书》",
+                    url: "http://www.hlzq.com"
+                },{
+                    id: '0432',
+                    name:  "《基金投资人权益须知协议》",
+                    url: "http://www.360.com"
+                }
+            ]
+        }
+        
+    })
+</script>
+</body>
+</html>
