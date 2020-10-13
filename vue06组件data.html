@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue练习06</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+</head>
+<body>
+<template id="cpn">
+    <div>
+        <h1>这是一个组件</h1>
+        <h2>{{text}}</h2>
+    </div>
+
+</template>
+<div id="mytext" >
+    <input type="text" v-model="mytext"  >
+    <h1>{{mytext}}</h1>
+    <cpn>{</cpn>
+
+</div>
+
+<script type="text/javascript">
+
+
+    let myVue=new Vue({
+        el: '#mytext',
+        data: {
+           mytext: "西游记"
+        },
+        components: {
+            'cpn': {
+                template: "#cpn",
+                //data为什么是函数
+                // return返回地址，当实例化多个组件时不会冲突
+                data(){
+                    return {
+                        text: "嗯嗯嗯，组件"
+                    }
+                }
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
