@@ -2,22 +2,33 @@
 <html lang="cn">
 <head>
     <meta charset="UTF-8">
-    <title>Vue练习05</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+    <title>Vue练习06</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
 </head>
 <body>
-
+<template id="cpn">
+    <h1>这是一个组件</h1>
+</template>
 <div id="mytext" >
     <input type="text" v-model="mytext"  >
     <h1>{{mytext}}</h1>
+    <x></x>
+
 </div>
 
 <script type="text/javascript">
+
+    const cpn2=Vue.extend({
+        template: `<div>
+<h1>这是个组件这</h1>是两个组件
+</div>`
+    });
+    Vue.component('x',cpn2);
     let myVue=new Vue({
         el: '#mytext',
         data: {
            mytext: "西游记"
         }
-        
+
     })
 </script>
 </body>
