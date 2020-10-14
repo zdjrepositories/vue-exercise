@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue练习11</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+</head>
+<body>
+<template id="cpn1">
+    <div><h1 @click="myclik1()" c>这是个组件</h1>
+    <slot><button>插槽按钮</button></slot>
+        <slot name="zdj"><button>插槽按钮</button></slot>
+
+    </div>
+</template>
+
+<div id="mytext" >
+    <input type="text" v-model="book"  >
+
+    <cpn1></cpn1>
+    <cpn1><h2>插槽不需要按钮</h2></cpn1>
+    <cpn1><a slot="zdj">zdj</a></cpn1>
+    <button @click=" myclik()">按钮</button>
+
+</div>
+
+<script type="text/javascript">
+    const cpn1=Vue.extend({
+        template: '#cpn1',
+        props: ['book'],
+        methods:{
+            myclik1() {
+                console.log("这是子组件");
+            }
+        }
+    });
+
+    let myVue=new Vue({
+        el: '#mytext',
+        data: {
+            book: "西游记"
+        },
+        components:{
+            cpn1
+        },
+        methods:{
+            myclik() {
+                console.log("这是组件");
+                console.log(this.$children.length);
+                console.log(this.$refs.aaa)
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
