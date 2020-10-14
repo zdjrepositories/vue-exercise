@@ -8,19 +8,19 @@
 <template id="cpn1">
     <div>
         <h1>这是个组件</h1>
-     <h1>{{book}}</h1>
+        <input type="text" v-model="book">
     </div>
 </template>
 <template id="cpn2">
     <div>
-        <cpn1 :book="books"></cpn1>
-        <h1>这是两个个组件</h1>
+        <cpn1 :book="book"></cpn1>
+        <input type="text" v-model="book">
     </div>
 </template>
 <div id="mytext" >
-    <input type="text" v-model="tests"  >
-
-    <cpn2></cpn2>
+    <input type="text" v-model="book"  >
+    {{book}}
+    <cpn1 :book="book"></cpn1>
 
 </div>
 
@@ -29,27 +29,14 @@
         template: '#cpn1',
         props: ['book'],
     });
-    const cpn2=Vue.extend({
-        template: '#cpn2',
-        components:{
-            cpn1
-        },
-        data() {
-           return {
-               books: ["西游记", "三国演义"]
-           }
-        }
-    });
-
-
 
     let myVue=new Vue({
         el: '#mytext',
         data: {
-            tests: "西游记"
+            book: "西游记"
         },
         components:{
-            cpn2
+            cpn1
         }
 
     })

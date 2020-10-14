@@ -7,20 +7,14 @@
 <body>
 <template id="cpn1">
     <div>
-        <h1>这是个组件</h1>
-     <h1>{{book}}</h1>
+      <h1 v-for="item in book" @click="itemClick(item)">{{item}}</h1>
     </div>
 </template>
-<template id="cpn2">
-    <div>
-        <cpn1 :book="books"></cpn1>
-        <h1>这是两个个组件</h1>
-    </div>
-</template>
-<div id="mytext" >
-    <input type="text" v-model="tests"  >
 
-    <cpn2></cpn2>
+<div id="mytext" >
+    <input type="text" v-model="books"  >
+
+    <cpn1 :book="books" @item="cpnitemClick"></cpn1>
 
 </div>
 
@@ -28,28 +22,26 @@
     const cpn1=Vue.extend({
         template: '#cpn1',
         props: ['book'],
-    });
-    const cpn2=Vue.extend({
-        template: '#cpn2',
-        components:{
-            cpn1
-        },
-        data() {
-           return {
-               books: ["西游记", "三国演义"]
-           }
+        methods:{
+            itemClick(item){
+                this.$emit('item',item)
+                console.log(item)
+            }
         }
     });
-
-
 
     let myVue=new Vue({
         el: '#mytext',
         data: {
-            tests: "西游记"
+            books: ["西游记", "三国演义","红楼梦", "水浒传"]
         },
         components:{
-            cpn2
+            cpn1
+        },
+        methods:{
+            cpnitemClick(item){
+                console.log("book-------"+item)
+            }
         }
 
     })
