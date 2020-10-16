@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue练习9</title><script src="https://cdn.staticfile.org/vue/2.4.2/vue.js"></script>
+</head>
+<body>
+<template id="cpn1">
+    <div>
+        <h1>这是个组件</h1>
+        <input type="text" v-model="book">
+    </div>
+</template>
+<template id="cpn2">
+    <div>
+        <cpn1 :book="book"></cpn1>
+        <input type="text" v-model="book">
+    </div>
+</template>
+<div id="mytext" >
+    <input type="text" v-model="book"  >
+    {{book}}
+    <cpn1 :book="book"></cpn1>
+
+</div>
+ 
+<script type="text/javascript">
+    const cpn1=Vue.extend({
+        template: '#cpn1',
+        props: ['book'],
+    });
+
+    let myVue=new Vue({
+        el: '#mytext',
+        data: {
+            book: "西游记"
+        },
+        components:{
+            cpn1
+        }
+
+    })
+</script>
+</body>
+</html>
