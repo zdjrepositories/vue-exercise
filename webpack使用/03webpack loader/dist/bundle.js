@@ -92,8 +92,8 @@ module.exports={
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_node_modules_url_loader_dist_cjs_js_mycss_css__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_node_modules_url_loader_dist_cjs_js_mycss_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_node_modules_url_loader_dist_cjs_js_mycss_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_mycss_css__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_mycss_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_mycss_css__);
 
             
 
@@ -102,11 +102,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js___default()(__WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_node_modules_url_loader_dist_cjs_js_mycss_css__["default"], options);
+var update = __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js___default()(__WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_mycss_css___default.a, options);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_node_modules_url_loader_dist_cjs_js_mycss_css__["default"].locals || {});
+/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_1__node_modules_css_loader_dist_cjs_js_mycss_css___default.a.locals || {});
 
 /***/ }),
 /* 3 */
@@ -385,9 +385,140 @@ module.exports = function (list, options) {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// Imports
+var urlEscape = __webpack_require__(6);
+var ___CSS_LOADER_URL___0___ = urlEscape(__webpack_require__(7));
+
+// Module
+exports.push([module.i, "body{\r\n    /*background-color: red;*/\r\n    background: url(" + ___CSS_LOADER_URL___0___ + ");\r\n}", ""]);
+
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function (useSourceMap) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
+
+      if (item[2]) {
+        return '@media ' + item[2] + '{' + content + '}';
+      } else {
+        return content;
+      }
+    }).join('');
+  }; // import a list of modules into the list
+
+
+  list.i = function (modules, mediaQuery) {
+    if (typeof modules === 'string') {
+      modules = [[null, modules, '']];
+    }
+
+    var alreadyImportedModules = {};
+
+    for (var i = 0; i < this.length; i++) {
+      var id = this[i][0];
+
+      if (id != null) {
+        alreadyImportedModules[id] = true;
+      }
+    }
+
+    for (i = 0; i < modules.length; i++) {
+      var item = modules[i]; // skip already imported module
+      // this implementation is not 100% perfect for weird media query combinations
+      // when a module is imported multiple times with different media queries.
+      // I hope this will never occur (Hey this way we have smaller bundles)
+
+      if (item[0] == null || !alreadyImportedModules[item[0]]) {
+        if (mediaQuery && !item[2]) {
+          item[2] = mediaQuery;
+        } else if (mediaQuery) {
+          item[2] = '(' + item[2] + ') and (' + mediaQuery + ')';
+        }
+
+        list.push(item);
+      }
+    }
+  };
+
+  return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+  var content = item[1] || '';
+  var cssMapping = item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
+
+  return [content].join('\n');
+} // Adapted from convert-source-map (MIT)
+
+
+function toComment(sourceMap) {
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+  return '/*# ' + data + ' */';
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function escape(url) {
+  if (typeof url !== 'string') {
+    return url;
+  } // If url is already wrapped in quotes, remove them
+
+
+  if (/^['"].*['"]$/.test(url)) {
+    url = url.slice(1, -1);
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]/.test(url)) {
+    return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"';
+  }
+
+  return url;
+};
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: CssSyntaxError\n\n(1:1) Unknown word\n\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 1 | \u001b[39mexport default \u001b[32m\"data:text/css;charset=utf-8;base64,Ym9keXsNCiAgICAvKmJhY2tncm91bmQtY29sb3I6IHJlZDsqLw0KICAgIGJhY2tncm91bmQ6IHVybCgiLi4vaW1nLzEuanBnIik7DQp9\"\u001b[39m\n \u001b[90m   | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n");
+throw new Error("Module parse failed: E:\\WebStorm\\vue\\webpack使用\\03webpack loader\\src\\img\\1.jpg Unexpected character '�' (1:0)\nYou may need an appropriate loader to handle this file type.\n(Source code omitted for this binary file)");
 
 /***/ })
 /******/ ]);

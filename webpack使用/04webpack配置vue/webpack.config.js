@@ -4,33 +4,33 @@ module.exports={
     output: {
         path:path.resolve(__dirname,'dist'),
         filename: 'bundle.js',
-        publicpath: 'dist/'
+        publicPath: 'dist/'
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader','url-loader']
+                use: ['style-loader','css-loader']
             },
-            // {
-            //     test: /\.jpg$/,
-            //     use: [
-            //         {
-            //             loader:'url-loader',
-            //             options: {
-            //                 limit: 156
-            //             }
-            //         }
-            //     ]
-            // },
-            // {
-            //     test: /\.less$/,
-            //     use: [
-            //         {loader: 'style-loader'},
-            //         {loader: 'css-loader'},
-            //         {loader: 'less-loader'}
-            //     ]
-            // }
+            {
+                test: /\.jpg$/,
+                use: [
+                    {
+                        loader:'url-loader',
+                        options: {
+                            limit: 156234234
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    {loader: 'style-loader'},
+                    {loader: 'css-loader'},
+                    {loader: 'less-loader'}
+                ]
+            }
         ]
     }
 }
